@@ -1,24 +1,34 @@
 import "./App.css";
-import { useState } from "react";
-import { Todo } from "./Components";
+import Routes from "./Config/Routes";
 
 const App = () => {
-  const [key, setKey] = useState("");
-  const [value, setValue] = useState("");
-  const [obj, setObj] = useState({});
-  const addKeyValue = () => {
-    obj[key] = value;
-    setObj({ ...obj });
+  // const [key, setKey] = useState("");
+  // const [value, setValue] = useState("");
+  // const [obj, setObj] = useState({});
+  // const addKeyValue = () => {
+  //   obj[key] = value;
+  //   setObj({ ...obj });
 
-    //setObj({ ...obj, [key]: value });
-    console.log("obj", Object.entries(obj));
-    setKey("");
-    setValue("");
-  };
+  //   //setObj({ ...obj, [key]: value });
+  //   console.log("obj", Object.entries(obj));
+  //   setKey("");
+  //   setValue("");
+  // };
+  // const user = useSelector((state) => state?.user);
+  // useEffect(() => {
+  //   console.log("user", user);
+  // }, [user]);
+
   return (
     <div>
-      <Todo />
-
+      <Routes />
+      {/* {user?.email ? (
+        <div>
+          <Todo />
+        </div>
+      ) : (
+        <Login />
+      )} */}
       {/* <div>
         <input
           name='key'
