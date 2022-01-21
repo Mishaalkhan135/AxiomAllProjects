@@ -3,21 +3,35 @@ import { useDispatch } from "react-redux";
 import { Form, Input, Button } from "antd";
 import { loginUser } from "../Redux/Actions/authActions";
 import { Link } from "react-router-dom";
-import { message, notification } from "antd";
+import { message } from "antd";
 import allPaths from "../Config/path";
+import axios from "axios";
+
 const Login = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   console.log("props", props);
   const onFinish = (values) => {
     console.log("values", values);
-    if (values?.email === "admin@admin.com" && values?.password === "admin") {
-      dispatch(loginUser(values));
-      console.log("********");
-      message.success("Successful Login");
-      return history.push(allPaths.Home);
-    }
-    message.error("Invalid email or password");
+    axios.post(`http://localhost:8080/auth/login`, values).then((res) => {
+      const { data } = res;
+      console.log("data", data);
+
+      if (data?.success) {
+        dispatch(loginUser(data.user));
+        console.log("********");
+        message.success(data?.message);
+        return history.push(allPaths.Home);
+      }
+      message.error(data?.message);
+    });
+    //   if (values?.email === "admin@gmail.com" && values?.password === "admin") {
+    //     dispatch(loginUser(values));
+    //     console.log("********");
+    //     message.success("Successful Login");
+    //     return history.push(allPaths.Home);
+    //   }
+    //message.error("Invalid email or password");
   };
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
