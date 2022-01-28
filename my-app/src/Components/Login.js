@@ -20,8 +20,8 @@ const Login = (props) => {
       if (data?.success) {
         dispatch(loginUser(data.user));
         console.log("********");
-        message.success(data?.message);
-        return history.push(allPaths.Home);
+        message.success("Successfully SignUp");
+        return history.push(allPaths.Signup);
       }
       message.error(data?.message);
     });
@@ -86,7 +86,7 @@ const Login = (props) => {
         </Form>
       </div>
       <Button type='primary'>
-        <Link to={allPaths.Home}>Go To Home</Link>
+        <Link to={allPaths.Signup}>Register</Link>
       </Button>
     </div>
   );

@@ -1,12 +1,20 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-
+const { mongoose } = require("./config");
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 const PORT = 8080;
+const db = mongoose.connection;
+
+db.on("error", (err) => {
+  console.log("err", err);
+});
+db.on("open", async () => {
+  console.log("Db Running!");
+});
+
 //Read Data And Dont Get Body
 // app.get("/", (req, res) => {
 //   try {
