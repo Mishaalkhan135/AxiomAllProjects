@@ -48,9 +48,27 @@ const Signup = (props) => {
             onFinish={onFinish}
             requiredMark={false}
             style={{ width: "100%" }}
-            // onFinishFailed={onFinishFailed}
+            //onFinishFailed={onFinishFailed}
           >
             <h1>SignUp Form</h1>
+            <Form.Item
+              name='firstName'
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your FirstName!",
+                },
+                {
+                  message: "Please enter FirstName",
+                },
+              ]}
+            >
+              <Input placeholder='Enter FirstName' />
+            </Form.Item>
+            <Form.Item name='lastName'>
+              <Input placeholder='Enter LastName (Optional)' />
+            </Form.Item>
+
             <Form.Item
               name='userName'
               rules={[

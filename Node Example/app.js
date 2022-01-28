@@ -2,12 +2,31 @@ const express = require("express");
 const cors = require("cors");
 const { mongoose } = require("./config");
 const app = express();
-
+const { Users } = require("./models");
 app.use(express.json());
 app.use(cors());
+
+console.log(Math.round(Math.random() * 100) + 1);
+Users.findOneAndUpdate(
+  { age: null },
+  { age: Math.round(Math.random() * 100) + 1 }
+)
+  .then(() => console.log("success"))
+  .catch((e) => console.log("e", e));
+
 const PORT = 8080;
 const db = mongoose.connection;
 
+let address = {
+  home: "7/15/gulistan",
+  zipCode: 75100,
+  city: "Karachi",
+  province: "Sindh",
+  country: "Pakistan",
+};
+Users.findOneAndUpdate({ age: 18 }, { address })
+  .then(() => console.log("success"))
+  .catch((e) => console.log("e", e));
 db.on("error", (err) => {
   console.log("err", err);
 });

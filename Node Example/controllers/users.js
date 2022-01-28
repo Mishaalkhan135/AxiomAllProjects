@@ -70,7 +70,43 @@ const Register = (req, res) => {
   } catch (e) {}
 };
 
+const getUsers = (req, res) => {
+  try {
+    const { body } = req;
+    Users.find(
+      { $or: [{ age: { $gte: body?.age, $lte: 100 } }] },
+      { __v: 0, password: 0 },
+      (err, users) => {
+        if (err || !users?.length) {
+          return res.send({ success: false, message: "No User Found" });
+        }
+        return res.send({ success: true, users });
+      }
+    );
+  } catch (e) {
+    return res.send({ message: e?.message, success: true });
+  }
+};
+// const getUsers = (req, res) => {
+//   try {
+//     const { body } = req;
+//     Users.find(
+//       { $or: [{ userName: body?.userName }, { email: body?.email }] },
+//       { __v: 0, password: 0 },
+//       (err, users) => {
+//         if (err || !users?.length) {
+//           return res.send({ success: false, message: "No User Found" });
+//         }
+//         return res.send({ success: true, users });
+//       }
+//     );
+//   } catch (e) {
+//     return res.send({ message: e?.message, success: true });
+//   }
+// };
+
 module.exports = {
   AuthLogin,
   Register,
+  getUsers,
 };
