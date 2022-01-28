@@ -11,22 +11,31 @@ const AuthLogin = (req, res) => {
       return res.send({ success: false, message: "Please fill all values" });
     }
 
-    Users.findOne(
-      { email: body?.email, password: body?.password },
-      (err, user) => {
-        if (err || !user) {
-          return res.send({
-            message: "Invalid Email or Password",
-            success: false,
-          });
-        }
+    Users.findOne({ email: body?.email }, async (err, response) => {
+      if (err || !response) {
+        return res.send({
+          message: "Invalid Email or Password",
+          success: false,
+        });
+      }
+      let isAuthenticated = bcrypt.compareSync(
+        body?.password,
+        response?.password
+      );
+      if (isAuthenticated) {
+        let user = await Users.findById(response?.id, { __v: 0, password: 0 });
         return res.send({
           message: "Successfully Login",
           success: true,
           user,
         });
       }
-    );
+
+      return res.send({
+        message: "Invalid Email or Password",
+        success: false,
+      });
+    });
 
     // if (body?.email === "admin@gmail.com" && body?.password === "admin") {
     //   return res.send({

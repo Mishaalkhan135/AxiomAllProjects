@@ -20,8 +20,8 @@ const Login = (props) => {
       if (data?.success) {
         dispatch(loginUser(data.user));
         console.log("********");
-        message.success("Successfully SignUp");
-        return history.push(allPaths.Signup);
+        message.success("Successfully Login");
+        return history.push(allPaths.Home);
       }
       message.error(data?.message);
     });
