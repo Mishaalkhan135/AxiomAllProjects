@@ -85,7 +85,7 @@ app.listen(PORT, () => {
   console.log(`Server is runing on Port ${PORT}!`);
 });
 
-app.use("/", require("./routes"));
+app.use("/auth", require("./routes"));
 
 // let obj = {
 //   message: "Hello Post",
